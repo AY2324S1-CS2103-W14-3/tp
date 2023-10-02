@@ -1,7 +1,5 @@
 package seedu.address.commons.core.index;
 
-import seedu.address.commons.util.ToStringBuilder;
-
 /**
  * Represents a zero-based or one-based index.
  *
@@ -49,21 +47,8 @@ public class Index {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof Index)) {
-            return false;
-        }
-
-        Index otherIndex = (Index) other;
-        return zeroBasedIndex == otherIndex.zeroBasedIndex;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("zeroBasedIndex", zeroBasedIndex).toString();
+        return other == this // short circuit if same object
+                || (other instanceof Index // instanceof handles nulls
+                && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
     }
 }

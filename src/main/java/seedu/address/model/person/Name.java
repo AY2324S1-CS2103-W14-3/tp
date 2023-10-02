@@ -46,17 +46,9 @@ public class Name {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof Name)) {
-            return false;
-        }
-
-        Name otherName = (Name) other;
-        return fullName.equals(otherName.fullName);
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)); // state check
     }
 
     @Override

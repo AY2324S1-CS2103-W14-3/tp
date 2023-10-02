@@ -167,9 +167,4 @@ public class UniquePersonListTest {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
     }
-
-    @Test
-    public void toStringMethod() {
-        assertEquals(uniquePersonList.asUnmodifiableObservableList().toString(), uniquePersonList.toString());
-    }
 }

@@ -21,9 +21,6 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private TextField commandTextField;
 
-    /**
-     * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
-     */
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
@@ -36,13 +33,8 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered() {
-        String commandText = commandTextField.getText();
-        if (commandText.equals("")) {
-            return;
-        }
-
         try {
-            commandExecutor.execute(commandText);
+            commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();

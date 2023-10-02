@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
@@ -24,21 +23,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
-            return false;
-        }
-
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        return other == this // short circuit if same object
+                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("keywords", keywords).toString();
-    }
 }

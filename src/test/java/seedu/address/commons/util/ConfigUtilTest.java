@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataLoadingException;
+import seedu.address.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {
 
@@ -29,17 +29,17 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws DataLoadingException {
+    public void read_missingFile_emptyResult() throws DataConversionException {
         assertFalse(read("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataLoadingException.class, () -> read("NotJsonFormatConfig.json"));
+        assertThrows(DataConversionException.class, () -> read("NotJsonFormatConfig.json"));
     }
 
     @Test
-    public void read_fileInOrder_successfullyRead() throws DataLoadingException {
+    public void read_fileInOrder_successfullyRead() throws DataConversionException {
 
         Config expected = getTypicalConfig();
 
@@ -48,13 +48,13 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_valuesMissingFromFile_defaultValuesUsed() throws DataLoadingException {
+    public void read_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
         Config actual = read("EmptyConfig.json").get();
         assertEquals(new Config(), actual);
     }
 
     @Test
-    public void read_extraValuesInFile_extraValuesIgnored() throws DataLoadingException {
+    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
 
@@ -68,7 +68,7 @@ public class ConfigUtilTest {
         return config;
     }
 
-    private Optional<Config> read(String configFileInTestDataFolder) throws DataLoadingException {
+    private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return ConfigUtil.readConfig(configFilePath);
     }
@@ -84,7 +84,7 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void saveConfig_allInOrder_success() throws DataLoadingException, IOException {
+    public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
 
         Path configFilePath = tempDir.resolve("TempConfig.json");

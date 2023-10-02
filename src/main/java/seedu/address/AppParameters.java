@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Represents the parsed command-line parameters given to the application.
@@ -50,24 +49,16 @@ public class AppParameters {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof AppParameters)) {
             return false;
         }
 
         AppParameters otherAppParameters = (AppParameters) other;
-        return Objects.equals(configPath, otherAppParameters.configPath);
+        return Objects.equals(getConfigPath(), otherAppParameters.getConfigPath());
     }
 
     @Override
     public int hashCode() {
         return configPath.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("configPath", configPath)
-                .toString();
     }
 }

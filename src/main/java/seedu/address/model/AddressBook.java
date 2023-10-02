@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -98,9 +97,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("persons", persons)
-                .toString();
+        return persons.asUnmodifiableObservableList().size() + " persons";
+        // TODO: refine later
     }
 
     @Override
@@ -110,17 +108,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof AddressBook)) {
-            return false;
-        }
-
-        AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return other == this // short circuit if same object
+                || (other instanceof AddressBook // instanceof handles nulls
+                && persons.equals(((AddressBook) other).persons));
     }
 
     @Override
