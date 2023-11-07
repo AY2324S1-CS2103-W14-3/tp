@@ -143,7 +143,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndicesUnfilteredList_success_has_duplicate() {
+    public void execute_validIndicesUnfilteredList_successWithDuplicate() {
         Contact firstContactToDelete =
                 model.getFilteredContactList().get(TestData.IndexContact.FIRST_CONTACT.getZeroBased());
         Contact secondContactToDelete =
