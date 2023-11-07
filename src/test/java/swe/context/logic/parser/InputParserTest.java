@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import swe.context.commons.core.index.Index;
 import swe.context.logic.Messages;
 import swe.context.logic.commands.AddCommand;
 import swe.context.logic.commands.ClearCommand;
@@ -51,7 +52,7 @@ public class InputParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) InputParser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + FIRST_CONTACT.getOneBased());
-        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT)), command);
+        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT, Index.fromZeroBased(0))), command);
     }
 
     @Test
@@ -59,7 +60,7 @@ public class InputParserTest {
         DeleteCommand command = (DeleteCommand) InputParser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + FIRST_CONTACT.getOneBased()
                 + " " + SECOND_CONTACT.getOneBased());
-        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT, SECOND_CONTACT)), command);
+        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT, SECOND_CONTACT,  Index.fromZeroBased(0))), command);
     }
 
     @Test
@@ -68,7 +69,7 @@ public class InputParserTest {
                 DeleteCommand.COMMAND_WORD + " " + FIRST_CONTACT.getOneBased()
                 + " " + FIRST_CONTACT.getOneBased()
                 + " " + FIRST_CONTACT.getOneBased());
-        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT)), command);
+        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT,  Index.fromZeroBased(1))), command);
     }
 
     @Test

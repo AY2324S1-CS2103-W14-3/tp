@@ -20,6 +20,8 @@ public final class Messages {
     private static final String UNFORMATTED_CONTACTS_LISTED_OVERVIEW = "%d contacts listed.";
     private static final String UNFORMATTED_ADD_COMMAND_SUCCESS = "New contact added: %s";
     private static final String UNFORMATTED_DELETE_COMMAND_SUCCESS = "Deleted contact(s):%n%s";
+    private static final String UNFORMATTED_DELETE_DUPLICATE_COMMAND_SUCCESS =
+            "Note that the duplicate indices just provided only count once.\n Deleted contact(s):%n%s";
     private static final String UNFORMATTED_EDIT_COMMAND_SUCCESS = "Edited contact: %s";
 
     // Specific commands
@@ -117,6 +119,13 @@ public final class Messages {
      */
     public static String editCommandSuccess(String contactDetails) {
         return String.format(UNFORMATTED_EDIT_COMMAND_SUCCESS, contactDetails);
+    }
+
+    /**
+     * Returns a formatted message indicating successful deletion that contains duplicate.
+     */
+    public static String deleteDuplicateCommandSuccess(String contactDetails) {
+        return String.format(UNFORMATTED_DELETE_DUPLICATE_COMMAND_SUCCESS, contactDetails);
     }
 
     /**

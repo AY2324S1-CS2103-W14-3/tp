@@ -22,13 +22,22 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         try {
             String[] splitArgs = args.trim().split("\\s+");
             List<Index> indices = new ArrayList<>();
+            boolean hasDuplicate = false;
 
             // Parse all the index arguments and add to the list if it doesn't already contain it
             for (String arg : splitArgs) {
                 Index currentIndex = ParserUtil.parseIndex(arg);
-                if (!indices.contains(currentIndex)) {
-                    indices.add(currentIndex);
+                if (indices.contains(currentIndex)) {
+                    hasDuplicate = true;
+                    continue;
                 }
+                indices.add(currentIndex);
+            }
+
+            if (hasDuplicate) {
+                indices.add(Index.fromZeroBased(1));
+            } else {
+                indices.add(Index.fromZeroBased(0));
             }
 
             return new DeleteCommand(indices);

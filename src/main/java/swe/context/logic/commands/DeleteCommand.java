@@ -43,7 +43,8 @@ public class DeleteCommand extends Command {
         List<Contact> contactsToDelete = new ArrayList<>();
 
         // Collect contacts to delete
-        for (Index index : targetIndices) {
+        for (int i = 0; i < targetIndices.size() - 1; i++) {
+            Index index = targetIndices.get(i);
             if (index.getZeroBased() >= currentContactList.size()) {
                 throw new CommandException(Messages.INVALID_DELETE_INDEX);
             }
@@ -60,6 +61,9 @@ public class DeleteCommand extends Command {
                 .map(Contact::format)
                 .collect(Collectors.joining(",\n"));
 
+        if (targetIndices.get(targetIndices.size() - 1).getZeroBased() == 1) {
+            return new CommandResult(Messages.deleteDuplicateCommandSuccess(formattedContacts));
+        }
         return new CommandResult(Messages.deleteCommandSuccess(formattedContacts));
     }
 

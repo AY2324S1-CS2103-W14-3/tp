@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import swe.context.commons.core.index.Index;
 import swe.context.logic.Messages;
 import swe.context.logic.commands.DeleteCommand;
 import swe.context.testutil.TestData;
@@ -23,8 +24,15 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT)));
+    public void parse_validArgs_returnsDeleteCommand1() {
+        assertParseSuccess(parser, "1",
+                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT, Index.fromZeroBased(0))));
+    }
+
+    @Test
+    public void parse_validArgs_returnsDeleteCommand2() {
+        assertParseSuccess(parser, "1 1",
+                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT, Index.fromZeroBased(1))));
     }
 
     @Test
