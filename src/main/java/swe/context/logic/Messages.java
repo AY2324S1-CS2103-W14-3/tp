@@ -21,7 +21,7 @@ public final class Messages {
     private static final String UNFORMATTED_ADD_COMMAND_SUCCESS = "New contact added: %s";
     private static final String UNFORMATTED_DELETE_COMMAND_SUCCESS = "Deleted contact(s):%n%s";
     private static final String UNFORMATTED_DELETE_DUPLICATE_COMMAND_SUCCESS =
-            "Note that the duplicate indices just provided only count once.\n Deleted contact(s):%n%s";
+            "Note that the duplicate indices just provided only count once.\nDeleted contact(s):%n%s";
     private static final String UNFORMATTED_EDIT_COMMAND_SUCCESS = "Edited contact: %s";
 
     // Specific commands

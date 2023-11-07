@@ -60,7 +60,8 @@ public class InputParserTest {
         DeleteCommand command = (DeleteCommand) InputParser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + FIRST_CONTACT.getOneBased()
                 + " " + SECOND_CONTACT.getOneBased());
-        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT, SECOND_CONTACT,  Index.fromZeroBased(0))), command);
+        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT, SECOND_CONTACT,
+                Index.fromZeroBased(0))), command);
     }
 
     @Test
