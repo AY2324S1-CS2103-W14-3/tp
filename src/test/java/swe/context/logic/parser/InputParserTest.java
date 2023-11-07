@@ -70,7 +70,7 @@ public class InputParserTest {
                 DeleteCommand.COMMAND_WORD + " " + FIRST_CONTACT.getOneBased()
                 + " " + FIRST_CONTACT.getOneBased()
                 + " " + FIRST_CONTACT.getOneBased());
-        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT,  Index.fromZeroBased(1))), command);
+        assertEquals(new DeleteCommand(List.of(FIRST_CONTACT, Index.fromZeroBased(1))), command);
     }
 
     @Test
