@@ -31,9 +31,11 @@ public class DeleteCommand extends Command {
     );
 
     private final List<Index> targetIndices;
+    private final boolean hasDuplicate;
 
-    public DeleteCommand(List<Index> targetIndices) {
+    public DeleteCommand(List<Index> targetIndices, boolean hasDuplicate) {
         this.targetIndices = targetIndices;
+        this.hasDuplicate = hasDuplicate;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class DeleteCommand extends Command {
         List<Contact> contactsToDelete = new ArrayList<>();
 
         // Collect contacts to delete
-        for (int i = 0; i < targetIndices.size() - 1; i++) {
+        for (int i = 0; i < targetIndices.size(); i++) {
             Index index = targetIndices.get(i);
             if (index.getZeroBased() >= currentContactList.size()) {
                 throw new CommandException(Messages.INVALID_DELETE_INDEX);
@@ -61,7 +63,7 @@ public class DeleteCommand extends Command {
                 .map(Contact::format)
                 .collect(Collectors.joining(",\n"));
 
-        if (targetIndices.get(targetIndices.size() - 1).getZeroBased() == 1) {
+        if (hasDuplicate) {
             return new CommandResult(Messages.deleteDuplicateCommandSuccess(formattedContacts));
         }
         return new CommandResult(Messages.deleteCommandSuccess(formattedContacts));
@@ -76,7 +78,8 @@ public class DeleteCommand extends Command {
             return false;
         }
         DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndices.equals(otherDeleteCommand.targetIndices);
+        return targetIndices.equals(otherDeleteCommand.targetIndices)
+                && this.hasDuplicate == otherDeleteCommand.hasDuplicate;
     }
 
     @Override

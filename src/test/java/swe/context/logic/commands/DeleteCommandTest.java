@@ -32,7 +32,7 @@ public class DeleteCommandTest {
         Contact contactToDelete =
                 model.getFilteredContactList().get(TestData.IndexContact.FIRST_CONTACT.getZeroBased());
         DeleteCommand deleteCommand =
-                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT, Index.fromZeroBased(0)));
+                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT), false);
 
         String expectedMessage = Messages.deleteCommandSuccess(Contact.format(contactToDelete));
 
@@ -45,7 +45,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(List.of(outOfBoundIndex, Index.fromZeroBased(0)));
+        DeleteCommand deleteCommand = new DeleteCommand(List.of(outOfBoundIndex), false);
 
         assertCommandFailure(deleteCommand, model, Messages.INVALID_DELETE_INDEX);
     }
@@ -55,8 +55,7 @@ public class DeleteCommandTest {
         showContactAtIndex(model, TestData.IndexContact.FIRST_CONTACT);
         Contact contactToDelete =
                 model.getFilteredContactList().get(TestData.IndexContact.FIRST_CONTACT.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT,
-                Index.fromZeroBased(0)));
+        DeleteCommand deleteCommand = new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT), false);
 
         String expectedMessage = Messages.deleteCommandSuccess(Contact.format(contactToDelete));
 
@@ -75,24 +74,23 @@ public class DeleteCommandTest {
         // Before removal, ensure the index is still in the bounds of contact list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getContacts().getUnmodifiableList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(List.of(outOfBoundIndex, Index.fromZeroBased(0)));
-
+        DeleteCommand deleteCommand = new DeleteCommand(List.of(outOfBoundIndex), false);
         assertCommandFailure(deleteCommand, model, Messages.INVALID_DELETE_INDEX);
     }
 
     @Test
     public void equals() {
         DeleteCommand deleteFirstCommand =
-                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT));
+                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT), false);
         DeleteCommand deleteSecondCommand =
-                new DeleteCommand(List.of(TestData.IndexContact.SECOND_CONTACT));
+                new DeleteCommand(List.of(TestData.IndexContact.SECOND_CONTACT), false);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
         DeleteCommand deleteFirstCommandCopy =
-                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT));
+                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT), false);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -108,7 +106,7 @@ public class DeleteCommandTest {
     @Test
     public void toStringMethod() {
         List<Index> targetIndices = List.of(Index.fromOneBased(1), Index.fromOneBased(2));
-        DeleteCommand deleteCommand = new DeleteCommand(targetIndices);
+        DeleteCommand deleteCommand = new DeleteCommand(targetIndices, true);
         String expected = DeleteCommand.class.getCanonicalName() + "{targetIndices=" + targetIndices + "}";
         assertEquals(expected, deleteCommand.toString());
     }
@@ -130,7 +128,7 @@ public class DeleteCommandTest {
                 model.getFilteredContactList().get(TestData.IndexContact.SECOND_CONTACT.getZeroBased());
         DeleteCommand deleteCommand =
                 new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT,
-                        TestData.IndexContact.SECOND_CONTACT, Index.fromZeroBased(0)));
+                        TestData.IndexContact.SECOND_CONTACT), false);
 
         String expectedMessage = Messages.deleteCommandSuccess(
                 Contact.format(firstContactToDelete) + ",\n" + Contact.format(secondContactToDelete));
@@ -150,7 +148,7 @@ public class DeleteCommandTest {
                 model.getFilteredContactList().get(TestData.IndexContact.SECOND_CONTACT.getZeroBased());
         DeleteCommand deleteCommand =
                 new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT,
-                        TestData.IndexContact.SECOND_CONTACT, Index.fromZeroBased(1)));
+                        TestData.IndexContact.SECOND_CONTACT), true);
 
         String expectedMessage = Messages.deleteDuplicateCommandSuccess(
                 Contact.format(firstContactToDelete) + ",\n" + Contact.format(secondContactToDelete));
@@ -172,8 +170,8 @@ public class DeleteCommandTest {
         // Providing the SECOND_CONTACT before the FIRST_CONTACT in the list.
         List<Index> unorderedIndices =
                 List.of(TestData.IndexContact.SECOND_CONTACT,
-                        TestData.IndexContact.FIRST_CONTACT, Index.fromZeroBased(0));
-        DeleteCommand deleteCommand = new DeleteCommand(unorderedIndices);
+                        TestData.IndexContact.FIRST_CONTACT);
+        DeleteCommand deleteCommand = new DeleteCommand(unorderedIndices, false);
 
         String expectedMessage = Messages.deleteCommandSuccess(
                 Contact.format(secondContactToDelete) + ",\n" + Contact.format(firstContactToDelete));
@@ -191,8 +189,8 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
 
         // Providing a valid index followed by an invalid one.
-        List<Index> indices = List.of(validIndex, outOfBoundIndex, Index.fromZeroBased(0));
-        DeleteCommand deleteCommand = new DeleteCommand(indices);
+        List<Index> indices = List.of(validIndex, outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(indices, false);
 
         assertCommandFailure(deleteCommand, model, Messages.INVALID_DELETE_INDEX);
     }

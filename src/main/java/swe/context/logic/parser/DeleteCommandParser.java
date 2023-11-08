@@ -34,13 +34,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 indices.add(currentIndex);
             }
 
-            if (hasDuplicate) {
-                indices.add(Index.fromZeroBased(1));
-            } else {
-                indices.add(Index.fromZeroBased(0));
-            }
-
-            return new DeleteCommand(indices);
+            return new DeleteCommand(indices, hasDuplicate);
 
         } catch (ParseException e) {
             throw new ParseException(

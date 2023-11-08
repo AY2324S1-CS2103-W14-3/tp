@@ -26,13 +26,13 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand1() {
         assertParseSuccess(parser, "1",
-                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT, Index.fromZeroBased(0))));
+                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT), false));
     }
 
     @Test
     public void parse_validArgs_returnsDeleteCommand2() {
         assertParseSuccess(parser, "1 1",
-                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT, Index.fromZeroBased(1))));
+                new DeleteCommand(List.of(TestData.IndexContact.FIRST_CONTACT), true));
     }
 
     @Test
