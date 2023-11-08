@@ -33,6 +33,12 @@ public class DeleteCommand extends Command {
     private final List<Index> targetIndices;
     private final boolean hasDuplicate;
 
+    /**
+     * Constructs a new {@code DeleteCommand} with the specified indices and duplication status.
+     *
+     * @param targetIndices the list of indices of the items to be deleted.
+     * @param hasDuplicate a boolean value indicating if there are duplicate indices in the list.
+     */
     public DeleteCommand(List<Index> targetIndices, boolean hasDuplicate) {
         this.targetIndices = targetIndices;
         this.hasDuplicate = hasDuplicate;

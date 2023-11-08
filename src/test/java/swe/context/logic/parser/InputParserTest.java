@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import swe.context.commons.core.index.Index;
 import swe.context.logic.Messages;
 import swe.context.logic.commands.AddCommand;
 import swe.context.logic.commands.ClearCommand;

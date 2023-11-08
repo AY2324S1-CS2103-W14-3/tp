@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import swe.context.commons.core.index.Index;
 import swe.context.logic.Messages;
 import swe.context.logic.commands.DeleteCommand;
 import swe.context.testutil.TestData;
